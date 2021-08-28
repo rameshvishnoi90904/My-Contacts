@@ -43,10 +43,12 @@ const HomeScreen = ({navigation}) => {
 
     const getContacts = () => {
       Contacts.getAll().then(contacts => {
-        const stringifiedValue = JSON.stringify(contacts);
-        AsyncStorage.setItem("@contacts",stringifiedValue)
-        updateState({type: "triggerSync"})
-        updateState({type: "init", data: {contactList: contacts}})
+        if (contacts) {
+          const stringifiedValue = JSON.stringify(contacts);
+          AsyncStorage.setItem("@contacts",stringifiedValue)
+          updateState({type: "triggerSync"})
+          updateState({type: "init", data: {contactList: contacts}})
+        }
       })
     }
 
