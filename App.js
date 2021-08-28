@@ -1,16 +1,19 @@
 import React, { useState, useContext, useEffect } from 'react';
 import {TouchableOpacity} from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-const Stack = createStackNavigator();
+
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Ionicons'
+import { UserController, UserContext } from './src/context/context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import LoadingSpinner from './src/components/LoadingSpinner';
 
 import HomeScreen from './src/screens/HomeScreen';
 import EditContact from './src/screens/EditContact';
 import PreviewContact from './src/screens/PreviewContact';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/Ionicons'
-import { UserController, UserContext } from './src/context/context';
 
-import LoadingSpinner from './src/components/LoadingSpinner';
+const Stack = createStackNavigator();
 
 function MyStack({}) {
   const navigation = useNavigation();
@@ -19,6 +22,20 @@ function MyStack({}) {
 
   useEffect(() => {
     setInitialLoading(false);
+
+    AsyncStorage.getItem("@syncEnabled").then((syncValue) => {
+      AsyncStorage.removeItem("@syncEnabled")
+      if (syncValue && JSON.parse(syncValue)) {
+        updateState({type: 'triggerSync'});
+      }
+      AsyncStorage.getItem("@contacts").then((value) => {
+        if (value) {
+          const contactList = JSON.parse(value);
+          updateState({type: 'init', data: {contactList: contactList}})
+        }
+        setInitialLoading(false);
+      });
+    });
   },[]);
 
 
