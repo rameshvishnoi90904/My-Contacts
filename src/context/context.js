@@ -90,8 +90,8 @@ export function UserController(props) {
     const [userState, updateUser] = useReducer(updater, initialState);
     const value = useMemo(() => [userState, updateUser], [userState]);
     return (<UserContext.Provider value={value}>
-            {props.children}
-            </UserContext.Provider>);
+        {props.children}
+    </UserContext.Provider>);
   }
   
   UserController.propTypes = {
