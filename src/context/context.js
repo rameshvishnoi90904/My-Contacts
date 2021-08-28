@@ -1,7 +1,5 @@
 import React, { useReducer, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { sortUsers } from '../helper';
 const initialState = {
     contactList: [],
     syncEnabled: false
