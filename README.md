@@ -45,7 +45,7 @@ Project follows very simple folder structure
       - `EditContact.js`: (Functional component with hooks) This contains logic for creating new/edit contact and save changes into phone
 - `App.js` : This contains navigation logic, syncing contacts from async storage 
 - `__test__`: This folder contains all jest testcases
-  - `index.spec.js`: This contains function test case for helper functions
+  - `index.test.js`: This contains function test case for helper functions
   - `HomeScreen.test.js`: Test case for contact list preview using mockdata
   - `PreviewContact.test.js`: Test case for matching user name, email and phonenumber 
   - `EditContact.test.js`: Snapshot test case
